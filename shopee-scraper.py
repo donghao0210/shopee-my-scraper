@@ -23,7 +23,7 @@ data = datetime.today().strftime('%Y-%m-%d')
 now = datetime.now()
 date_time = now.strftime("%d/%m/%Y, %H:%M:%S")
 #set interval for cron jobs
-interval_hours = 6
+interval_hours = 1
 next_job_time = datetime.now() + timedelta(hours = interval_hours)
 
 def scrape():
@@ -47,6 +47,7 @@ def scrape():
     with yaspin(text="Fetching Product",timer=True , color="cyan") as sp:
     #creates a while statement using the number of ads created. Since the (index) json file stars with 0, the while statment starts with -1. 
         creat_while = -1
+        product_found = False
         while creat_while < list_size - 1:
             creat_while += 1
             
@@ -63,11 +64,13 @@ def scrape():
 
             #you've to set where you wanna save the csv file. If you run the code without changing the directory settings, you'll get no data.
             # print(ad_id, '|', title, '|', stock, '|', price, '|', sales, '|', rating, '|', likes, '|', views, file=open("./%s-shopee_scraped.csv" % data, "a"))
-            if title == 'Le Mood Clover Japan Dressmaking Silk Pin Jarum Peniti Sewing Pin Tailoring Pattern Making Tool Fix Position Pin':
-                # sp.ok("✔ Product Found!")
+            if title != 'Le Mood Clover Japan Dressmaking Silk Pin Jarum Peniti Sewing Pin Tailoring Pattern Making Tool Fix Position Pin':
+                print('AryNo: ',creat_while,'ID: ',ad_id,'Product:',title ,'| Stock:', stock, file=open("./%s-shopee_scraped.csv" % data, "a"))        
+            else:
                 sp.ok()
                 time.sleep(0.5)
                 sp.write(text="✔ Product Found!")
+                product_found = True
                 # print('Product: ',title ,'| Stock:', stock,)
                 print('| Product: ',title )
                 # print('| Price:', price )
@@ -82,8 +85,10 @@ def scrape():
                     discord.post(content="✔ STOCK FOUND! PLEASE CHECK!")
                     discord.post(content="✔ https://shopee.com.my/Le-Mood-Clover-Japan-Dressmaking-Silk-Pin-Jarum-Peniti-Sewing-Pin-Tailoring-Pattern-Making-Tool-Fix-Position-Pin-i.12065998.4229067630?sp_atk=205f0137-c883-4330-81dc-c472935b660c&xptdk=205f0137-c883-4330-81dc-c472935b660c")
                     exit()
+            # sp.write(text="✖ Product Not Found!")
+        if product_found == False:
+            print("\n✖ Product Not Found!")
             #     #All items before the target item will be recorded in the csv file.
-            #     print('AryNo: ',creat_while,'ID: ',ad_id,'Product:',title ,'| Stock:', stock, file=open("./%s-shopee_scraped.csv" % data, "a"))
             # print(ad_id, '|', title, '|', stock, '|', price, '|', sales, '|', likes, '|', file=open("~/Documents/Kambyan/test-lab/shopee-scraper/%s-shopee_scraped.csv" % data, "a"))
 
         # print('The scrapping is done. Your CSV file is ready!')
