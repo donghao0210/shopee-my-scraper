@@ -1,0 +1,5 @@
+requests==2.28.1
+yaspin==2.2.0
+APScheduler==3.9.1
+discordwebhook==1.0.3
+discord==2.0.0

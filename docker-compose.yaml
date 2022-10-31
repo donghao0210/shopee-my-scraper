@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  main:
+    container_name: shopee-my-scraper
+    environment:
+      - WEBHOOK_URL='https://discord.com/api/webhooks/1036137783166763050/ZNT6vAhyyZcjbY0y57MkISW7uc-l6QdGYMT3ZxKD6GYFpQt0JJPnfPDL0RJ0ocgcMn7D'
+    build: .
+    image: shopee-my-scraper
+    restart: unless-stopped
+    volumes: 
+      - .:/app
