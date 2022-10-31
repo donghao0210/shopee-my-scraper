@@ -4,7 +4,7 @@ services:
   main:
     container_name: shopee-my-scraper
     environment:
-      - WEBHOOK_URL='https://discord.com/api/webhooks/1036137783166763050/ZNT6vAhyyZcjbY0y57MkISW7uc-l6QdGYMT3ZxKD6GYFpQt0JJPnfPDL0RJ0ocgcMn7D'
+      - WEBHOOK_URL=''<your_discord_channel_webhook_URL>'
     build: .
     image: shopee-my-scraper
     restart: unless-stopped
